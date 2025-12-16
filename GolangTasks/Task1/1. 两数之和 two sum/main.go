@@ -20,6 +20,5 @@ func twoSum(nums []int, target int) []int {
 		m[v] = i
 	}
 
-	// 题目保证一定有解，其实这里不会执行
 	return nil
 }
