@@ -53,6 +53,12 @@ func main() {
 			}
 		}()
 	}
+
+	/*
+		如果某个变量在并发场景下用原子操作更新，那么对它的读写也应该使用原子读写（例如 atomic.LoadInt64），否则仍可能产生数据竞争。
+		这段代码为什么没用 LoadInt64 也没问题？因为在 wg.Wait() 之后才读 counter，此时已经没有任何 goroutine 在写它了（并发结束），读普通变量也安全。
+	*/
+	
 	wg.Wait()
 	fmt.Printf("final counter (atomic) = %d (expected %d)\n", x2, int64(lines*1000))
 	fmt.Println("Question 2: Finished")
